@@ -1,0 +1,37 @@
+<input
+  type="file"
+  id="photo"
+  name="photo"
+  #album
+  (change)="uploadPhoto($event)"
+  accept="image/*"
+  ngModel
+  class="d-none"
+/>
+<img
+  src="https://res.cloudinary.com/wasimkhan/image/upload/v1574570528/Album/upload_jkw9lh.png"
+  (click)="album.click()"
+  style="cursor: pointer;"
+  class="d-block mx-auto mt-5"
+  height="60"
+/>
+<!-- 
+<div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let photo of photos">
+      <div class="col-md-3 mb-3">
+        <img src="{{ photo?.photoURL }}" alt="" height="210" width="210" />
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div class="row1 mt-5">
+    <div class="column1" *ngFor="let photo of photos">
+      <img src="{{ photo?.photoURL }}" height="250" />
+    </div>
+  </div>
+</div>
+
+<ngx-loading [show]="loading"></ngx-loading>

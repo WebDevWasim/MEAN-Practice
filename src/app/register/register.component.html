@@ -1,0 +1,195 @@
+<div class="container">
+  <div class="row">
+    <!-- =========This is Form=========== -->
+    <form
+      class="jumbotron mt-4 p-4 col-md-6 offset-md-3 bg-light text-dark"
+      #myForm="ngForm"
+      (ngSubmit)="submitForm(myForm)"
+    >
+      <!-- TODO: NAME  type="text"  -->
+      <div class="form-group">
+        <label for="fn">NAME</label>
+        <input
+          class="form-control"
+          [class.is-invalid]="
+            firstname.invalid && (firstname.touched || firstname.dirty)
+          "
+          [class.is-valid]="
+            firstname.valid && (firstname.touched || firstname.dirty)
+          "
+          type="text"
+          id="fn"
+          name="name"
+          #firstname="ngModel"
+          ngModel
+          required
+        />
+
+        <!-- FIXME:  Name Validation -->
+        <div
+          *ngIf="firstname.invalid && (firstname.touched || firstname.dirty)"
+        >
+          <small class="text-danger">Name is Required</small>
+        </div>
+      </div>
+
+      <!-- TODO: EMAIL  type="text"  -->
+      <div class="form-group">
+        <label for="email">EMAIL</label>
+        <input
+          class="form-control"
+          [class.is-invalid]="email.invalid && (email.touched || email.dirty)"
+          [class.is-valid]="email.valid && (email.touched || email.dirty)"
+          type="text"
+          id="email"
+          name="email"
+          #email="ngModel"
+          ngModel
+          required
+        />
+
+        <!-- FIXME:  EMAIL Validation -->
+        <div *ngIf="email.invalid && (email.touched || email.dirty)">
+          <small class="text-danger">Email is Required</small>
+        </div>
+      </div>
+
+      <!-- TODO: Pro  type="file"  -->
+      <div class="form-group">
+        <label for="photo">PHOTO</label>
+        <input
+          class="form-control"
+          [class.is-invalid]="photo.invalid && (photo.touched || photo.dirty)"
+          [class.is-valid]="photo.valid && (photo.touched || photo.dirty)"
+          type="file"
+          id="photo"
+          name="photo"
+          #photo="ngModel"
+          (change)="profilephoto($event)"
+          accept="image/*"
+          ngModel
+          required
+        />
+
+        <!-- FIXME:  Photo Validation -->
+        <div *ngIf="photo.invalid && (photo.touched || photo.dirty)">
+          <small class="text-danger">Profile Photo is Required</small>
+        </div>
+      </div>
+
+      <!-- TODO: MOBILE NO type="number"-->
+      <div class="form-group">
+        <label for="ph">MOBILE NO</label>
+        <input
+          class="form-control"
+          type="number"
+          pattern="^[0-9]{10}$"
+          id="ph"
+          name="mobile"
+          #mobile="ngModel"
+          autocomplete="off"
+          [class.is-invalid]="
+            mobile.invalid && (mobile.dirty || mobile.touched)
+          "
+          [class.is-valid]="mobile.valid && (mobile.dirty || mobile.touched)"
+          ngModel
+          required
+        />
+
+        <!-- FIXME: Mobile No, Pattern Validation -->
+        <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
+          <small class="text-danger" *ngIf="mobile.errors?.required">
+            Valid Mobile Number is Required</small
+          >
+          <small class="text-danger" *ngIf="mobile.errors?.pattern">
+            Mobile Number Must be 10 digits</small
+          >
+        </div>
+      </div>
+
+      <!-- TODO: QUALIFICATION select-option -->
+      <div class="form-group">
+        <label for="qualification">QUALIFICATION</label>
+        <select
+          class="form-control"
+          [class.is-invalid]="qualification.invalid && qualification.touched"
+          [class.is-valid]="qualification.valid && qualification.touched"
+          id="qualification"
+          ngModel
+          required
+          name="qualification"
+          #qualification="ngModel"
+        >
+          <option>B.Tech</option>
+          <option>M.Tech</option>
+          <option>BBA</option>
+          <option>MBA</option>
+        </select>
+
+        <!-- FIXME: QUALIFICATION Validation -->
+        <div *ngIf="qualification.invalid && qualification.touched">
+          <small class="text-danger"> Choose your last qualification</small>
+        </div>
+      </div>
+
+      <!-- TODO: PASSWORD-->
+      <div class="form-group">
+        <label for="password">PASSWORD</label>
+        <input
+          class="form-control"
+          type="password"
+          pattern="^[0-9]{4}[a-zA-Z]{4}.*"
+          id="password"
+          name="password"
+          #password="ngModel"
+          [class.is-invalid]="
+            password.invalid && (password.dirty || password.touched)
+          "
+          [class.is-valid]="
+            password.valid && (password.dirty || password.touched)
+          "
+          ngModel
+          required
+        />
+
+        <!-- FIXME: PASSWORD Validation -->
+        <div
+          class="text-danger"
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+        >
+          <small *ngIf="password.errors?.required">
+            Password is Required
+          </small>
+
+          <small *ngIf="password.errors?.pattern">
+            Password Must be 8 characters and Match valid pattern Ex: 1234AbcD
+          </small>
+        </div>
+      </div>
+
+      <!--  TODO: Submit Button -->
+      <button
+        type="submit"
+        [disabled]="myForm.invalid"
+        class="btn btn-success form-control"
+        [disabled]="loading"
+      >
+        RESISTER
+        <span
+          [ngClass]="{
+            'spinner-border spinner-border-sm text-warning': loading
+          }"
+        ></span>
+      </button>
+      <div class="alert alert-success p-1 pt-2 mt-3" *ngIf="isNotRegistered">
+        <h5 class="text-center">{{ message }}</h5>
+      </div>
+
+      <div class="alert alert-danger p-1 pt-2 mt-3" *ngIf="isRegistered">
+        <h5 class="text-center">{{ message }}</h5>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- <ngx-loading [show]="loading"></ngx-loading> -->

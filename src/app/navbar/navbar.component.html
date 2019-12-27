@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <a class="navbar-brand" routerLink="">MEAN</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="home" routerLinkActive="active">Home</a>
+      </li>
+
+      <div
+        *ngIf="loginService.isUserLoggedIn(); then thenBlock; else elseBlock"
+      ></div>
+      <!-- TODO: This is User Dashboard -->
+      <ng-template #thenBlock>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="userdashboard"
+            routerLinkActive="active"
+            >Dashboard</a
+          >
+        </li>
+      </ng-template>
+
+      <!-- TODO: This is Admin Dashboard -->
+      <li class="nav-item" *ngIf="loginService.isAdminLoggedIn()">
+        <a
+          class="nav-link"
+          routerLink="admindashboard"
+          routerLinkActive="active"
+          >Dashboard</a
+        >
+      </li>
+
+      <ng-template #elseBlock>
+        <li class="nav-item" *ngIf="!loginService.isAdminLoggedIn()">
+          <a class="nav-link" routerLink="register" routerLinkActive="active"
+            >Registration</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="!loginService.isAdminLoggedIn()">
+          <a class="nav-link" routerLink="login" routerLinkActive="active"
+            >Login</a
+          >
+        </li>
+      </ng-template>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="album" routerLinkActive="active"
+          >Album</a
+        >
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" routerLink="aboutus" routerLinkActive="active"
+          >About Us</a
+        >
+      </li> -->
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
